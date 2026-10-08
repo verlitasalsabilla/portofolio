@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portofolio Rekayasa Perangkat Lunak (RPL) Verlita Salsabilla - Junior Web Developer.">
+    <title>Portofolio RPL | Verlita Salsabilla</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* ===== SETUP TEMA WARNA GRADASI KONTRAS TINGGI ===== */
+
+        /* 1. Tema Bintang (Kuning Emas ke Merah Crimson) */
+        :root,
+        body[data-theme="stars"] {
+            --primary: #FFD700;
+            --primary-light: #FF8C00;
+            --secondary: #FFD700;
+            --accent-grad: linear-gradient(135deg, #FFD700 0%, #FF2A55 100%);
+            --btn-grad: linear-gradient(135deg, #FF2A55 0%, #B30024 100%);
+            --bg-dark: #0A0A0F;
+            --bg-darker: #050508;
+            --bg-card: #13131A;
+            --text-main: #FFFFFF;
+            --text-sub: #B0B0C0;
+            --border: rgba(255, 42, 85, 0.4);
+            --glow: rgba(255, 215, 0, 0.3);
+        }
+
+        /* 2. Tema Bulan (Biru Neon Terang ke Ungu Violet Malam) */
+        body[data-theme="moon"] {
+            --primary: #00F2FE;
+            --primary-light: #38BDF8;
+            --secondary: #00F2FE;
+            --accent-grad: linear-gradient(135deg, #00F2FE 0%, #9D4EDD 100%);
+            --btn-grad: linear-gradient(135deg, #00C6FF 0%, #0072FF 100%);
+            --bg-dark: #030814;
+            --bg-darker: #01040A;
+            --bg-card: #0A1326;
+            --text-main: #FFFFFF;
+            --text-sub: #94A3B8;
+            --border: rgba(0, 242, 254, 0.4);
+            --glow: rgba(0, 242, 254, 0.3);
+        }
+
+        /* 3. Tema Matahari (Kuning Cerah ke Merah Oranye Warm) */
+        body[data-theme="sun"] {
+            --primary: #FFD200;
+            --primary-light: #FF9900;
+            --secondary: #FFD200;
+            --accent-grad: linear-gradient(135deg, #FFD200 0%, #F72585 100%);
+            --btn-grad: linear-gradient(135deg, #FF512F 0%, #DD2476 100%);
+            --bg-dark: #120902;
+            --bg-darker: #080301;
+            --bg-card: #1E1107;
+            --text-main: #FFFFFF;
+            --text-sub: #D1D5DB;
+            --border: rgba(255, 153, 0, 0.4);
+            --glow: rgba(255, 210, 0, 0.3);
+        }
+
+        /* 4. Tema Dedaunan (Hijau Lime Terang ke Hijau Teal/Emerald) */
+        body[data-theme="leaves"] {
+            --primary: #A8FF78;
+            --primary-light: #78FFD6;
+            --secondary: #A8FF78;
+            --accent-grad: linear-gradient(135deg, #A8FF78 0%, #00B4DB 100%);
+            --btn-grad: linear-gradient(135deg, #11998E 0%, #38EF7D 100%);
+            --bg-dark: #02120B;
+            --bg-darker: #010805;
+            --bg-card: #082116;
+            --text-main: #FFFFFF;
+            --text-sub: #A7F3D0;
+            --border: rgba(56, 239, 125, 0.4);
+            --glow: rgba(168, 255, 120, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark) !important;
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* ===== BACKGROUND PARTIKEL EFEK ===== */
+        .effect-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.35;
+        }
+
+        .effect-item {
+            position: absolute;
+            top: -50px;
+            font-family: 'Fira Code', monospace;
+            animation: fall linear infinite;
+            background: var(--accent-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+
+        /* ===== NAVBAR ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--bg-darker);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--primary-light);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-sub);
+            text-decoration: none;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        /* Tombol Hamburger */
+        .hamburger-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .theme-switcher {
+            display: flex;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 4px;
+            border-radius: 20px;
+            gap: 4px;
+        }
+
+        .theme-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-sub);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .theme-btn.active,
+        .theme-btn:hover {
+            background: var(--btn-grad);
+            color: #fff;
+            box-shadow: 0 0 12px var(--glow);
+        }
+
+        /* ===== COMMON SECTION STYLES ===== */
+        section {
+            padding: 5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title .code-comment {
+            font-family: 'Fira Code', monospace;
+            color: var(--primary-light);
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .section-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            background: var(--accent-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 7rem;
+        }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+            align-items: center;
+            width: 100%;
+        }
+
+        .code-window {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .window-header {
+            background: var(--bg-darker);
+            padding: 0.6rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .window-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot-red {
+            background: #FF5F56;
+        }
+
+        .dot-yellow {
+            background: #FFBD2E;
+        }
+
+        .dot-green {
+            background: #27C93F;
+        }
+
+        .photo-box {
+            width: 100%;
+            height: auto;
+            background: var(--bg-darker);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-box img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .badge-pkl {
+            position: absolute;
+            bottom: 12px;
+            background: var(--bg-darker);
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 15px;
+        }
+
+        .hero-text .greeting {
+            font-family: 'Fira Code', monospace;
+            color: var(--primary-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            background: var(--accent-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-text .role {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.2rem;
+            color: var(--text-sub);
+            margin-bottom: 1rem;
+        }
+
+        .hero-text .role span {
+            background: var(--accent-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+        }
+
+        .hero-text p {
+            color: var(--text-sub);
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            font-family: 'Fira Code', monospace;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--btn-grad);
+            color: #fff;
+            border: none;
+            box-shadow: 0 0 15px var(--glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--secondary);
+            border: 1px solid var(--border);
+        }
+
+        /* ===== ABOUT (TERMINAL STYLE) ===== */
+        .terminal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            background: var(--bg-darker);
+            padding: 0.7rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .terminal-body {
+            padding: 1.8rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .prompt {
+            color: var(--primary-light);
+            margin-right: 0.5rem;
+        }
+
+        .command {
+            color: var(--secondary);
+            margin-right: 0.5rem;
+        }
+
+        /* ===== SKILLS SECTION ===== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 1.8rem;
+            border-radius: 12px;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+        }
+
+        .skill-icon {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .skill-card h3 {
+            font-family: 'Fira Code', monospace;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--primary-light);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+
+        /* ===== PROJECTS & CERTIFICATES ===== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card,
+        .cert-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-card:hover,
+        .cert-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+        }
+
+        .project-banner {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.5rem 1.2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .project-cat {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.7rem;
+            color: var(--text-sub);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .project-big-title {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-light);
+            opacity: 0.8;
+        }
+
+        .cert-img-box {
+            height: 170px;
+            background: var(--bg-darker);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-size: 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cert-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-info,
+        .cert-body {
+            padding: 1.2rem;
+        }
+
+        .project-info h3,
+        .cert-body h4 {
+            font-family: 'Fira Code', monospace;
+            color: var(--secondary);
+            margin-bottom: 0.4rem;
+            font-size: 1.1rem;
+        }
+
+        .project-footer {
+            padding: 0 1.2rem 1.2rem 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .github-link {
+            color: var(--text-sub);
+            text-decoration: none;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+        }
+
+        .github-link:hover {
+            color: var(--secondary);
+        }
+
+        /* ===== CONTACT & FOOTER ===== */
+        .contact-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2rem 5%;
+            text-align: center;
+            color: var(--text-sub);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+        }
+
+        /* ===== MEDIA QUERIES (LAYAR HP/TABLET) ===== */
+        @media (max-width: 850px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .code-window {
+                max-width: 260px;
+                margin: 0 auto;
+            }
+
+            .btn-group {
+                justify-content: center;
+            }
+
+            /* Tampilkan Tombol Hamburger */
+            .hamburger-btn {
+                display: block;
+            }
+
+            /* Styling Menu HP */
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--bg-darker);
+                flex-direction: column;
+                padding: 1.5rem 0;
+                gap: 1.2rem;
+                text-align: center;
+                border-bottom: 1px solid var(--border);
+                display: none; /* Sembunyi secara default */
+            }
+
+            /* Kelas aktif untuk menampilkan menu */
+            .nav-links.show {
+                display: flex;
+            }
+
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body data-theme="stars">
+
+    <div class="effect-container" id="effectContainer"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#home" class="logo"><span>&lt;</span>Verlita.dev<span>/&gt;</span></a>
+
+        <div class="nav-right">
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about" onclick="closeMenu()">About</a></li>
+                <li><a href="#skills" onclick="closeMenu()">Skills</a></li>
+                <li><a href="#projects" onclick="closeMenu()">Projects</a></li>
+                <li><a href="#certificates" onclick="closeMenu()">Certificates</a></li>
+                <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+            </ul>
+
+            <div class="theme-switcher">
+                <button class="theme-btn active" onclick="changeTheme('stars', this)" title="Tema Bintang"><i
+                        class="fa-solid fa-star"></i></button>
+                <button class="theme-btn" onclick="changeTheme('moon', this)" title="Tema Bulan"><i
+                        class="fa-solid fa-moon"></i></button>
+                <button class="theme-btn" onclick="changeTheme('sun', this)" title="Tema Matahari"><i
+                        class="fa-solid fa-sun"></i></button>
+                <button class="theme-btn" onclick="changeTheme('leaves', this)" title="Tema Dedaunan"><i
+                        class="fa-solid fa-leaf"></i></button>
+            </div>
+
+            <!-- Tombol Hamburger Ikon -->
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars" id="hamburgerIcon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="code-window">
+                <div class="window-header">
+                    <span class="window-dot dot-red"></span>
+                    <span class="window-dot dot-yellow"></span>
+                    <span class="window-dot dot-green"></span>
+                </div>
+                <div class="photo-box">
+                    <img src="foto-profil.jpeg" alt="Foto Verlita Salsabilla" loading="lazy"
+                        onerror="this.style.display='none'; document.getElementById('ph').style.display='flex';">
+                    <div id="ph" style="display:none; flex-direction:column; align-items:center;">
+                        <i class="fa-solid fa-user-code" style="font-size:3rem; color:var(--secondary);"></i>
+                        <p style="font-family:'Fira Code'; font-size:0.8rem; margin-top:8px;">// VERLITA SALSABILLA</p>
+                    </div>
+                    <div class="badge-pkl"><i class="fa-solid fa-code"></i> RPL Student</div>
+                </div>
+            </div>
+
+            <div class="hero-text">
+                <div class="greeting">&gt; System.out.println("Halo Dunia!");</div>
+                <h1>Verlita Salsabilla</h1>
+                <div class="role">Rekayasa Perangkat Lunak &bull; <span>Junior Web Developer</span></div>
+                <p>Saya siswa Rekayasa Perangkat Lunak yang berfokus pada logika pengembangan web, pengelolaan basis
+                    data, dan pembuatan aplikasi web modern yang terstruktur.</p>
+
+                <div class="btn-group">
+                    <a href="#projects" class="btn btn-primary"><i class="fa-solid fa-code"></i> Lihat Karya</a>
+                    <a href="#contact" class="btn btn-secondary"><i class="fa-solid fa-paper-plane"></i> Hubungi
+                        Saya</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-title">
+            <div class="code-comment">// 01. SIAPA SAYA</div>
+            <h2>Tentang Saya</h2>
+        </div>
+        <div class="terminal">
+            <div class="terminal-header">
+                <span class="window-dot dot-red"></span>
+                <span class="window-dot dot-yellow"></span>
+                <span class="window-dot dot-green"></span>
+            </div>
+            <div class="terminal-body">
+                <p><span class="prompt">verlita@rpl:~$</span><span class="command">cat tentang_saya.txt</span></p>
+                <p style="color: var(--text-sub); margin-top:0.5rem;">
+                    Saya Verlita Salsabilla, siswa jurusan Rekayasa Perangkat Lunak (RPL) di SMKN 8 Jember. Memiliki
+                    pemahaman dalam dasar HTML, CSS, JavaScript, serta basis data SQLite & MySQL. Saya berfokus untuk
+                    membangun aplikasi web modern yang terstruktur, rapi, dan mudah digunakan.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="section-title">
+            <div class="code-comment">// 02. KEMAMPUAN TEKNIS</div>
+            <h2>Keahlian & Technologies</h2>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                <h3>Front-End Dev</h3>
+                <p style="color:var(--text-sub); font-size:0.85rem;">Antarmuka web interaktif dan responsif.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">HTML</span>
+                    <span class="tech-tag">CSS</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">UI/UX</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <h3>Full-Stack & Back-End</h3>
+                <p style="color:var(--text-sub); font-size:0.85rem;">Pengembangan aplikasi server & manajemen database.
+                </p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Laravel</span>
+                    <span class="tech-tag">Inertia.js</span>
+                    <span class="tech-tag">SQLite</span>
+                    <span class="tech-tag">MySQL</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                <h3>Tools & UI/UX</h3>
+                <p style="color:var(--text-sub); font-size:0.85rem;">Perancangan antarmuka & alur kontrol versi kode.
+                </p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Figma</span>
+                    <span class="tech-tag">Git & GitHub</span>
+                    <span class="tech-tag">VS Code</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="section-title">
+            <div class="code-comment">// 03. HASIL KARYA</div>
+            <h2>Proyek Pilihan</h2>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div>
+                    <div class="project-banner">
+                        <span class="project-cat">LANDING PAGE & PROMOTION</span>
+                        <span class="project-big-title">ART</span>
+                    </div>
+                    <div class="project-info">
+                        <p
+                            style="color:var(--primary-light); font-size:0.75rem; font-family:'Fira Code'; font-weight:600; text-transform:uppercase;">
+                            FRONT-END DEVELOPMENT</p>
+                        <h3>Landing Page Produk Kesenian</h3>
+                        <p style="color:var(--text-sub); font-size:0.85rem;">Aplikasi pengelolaan data dengan alur
+                            tambah, lihat, ubah, dan hapus yang dibuat agar praktis digunakan.</p>
+                    </div>
+                </div>
+                <div class="project-footer">
+                    <div class="tech-tags" style="margin-top:0;">
+                        <span class="tech-tag">#HTML5</span>
+                        <span class="tech-tag">#CSS3</span>
+                        <span class="tech-tag">#JavaScript</span>
+                        <span class="tech-tag">#UI/UX</span>
+                    </div>
+                    <a href="https://github.com/verlitasalsabilla/landing-page-kesenian/" target="_blank" rel="noopener noreferrer" class="github-link">GitHub <i
+                            class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates">
+        <div class="section-title">
+            <div class="code-comment">// 04. SERTIFIKASI</div>
+            <h2>Sertifikat & Pencapaian</h2>
+        </div>
+        <div class="cert-grid">
+            <div class="cert-card">
+                <div class="cert-img-box">
+                    <img src="sertifikat1.jpeg" alt="Sertifikat Pemrograman Web Front-End" loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div style="display:none; text-align:center;"><i class="fa-solid fa-award"></i>
+                        <p style="font-size:0.8rem;">Sertifikat 01</p>
+                    </div>
+                </div>
+                <div class="cert-body">
+                    <h4>Pemrograman Web Front-End</h4>
+                    <p style="color:var(--text-sub); font-size:0.8rem;">Dinyatakan lulus Uji kompetensi Kelas Industri Hummatech pada tema Pemrograman Web Front End dengan Bootstrap dan PHP Native.</p>
+                </div>
+            </div>
+            <div class="cert-card">
+                <div class="cert-img-box">
+                    <img src="sertifikat2.jpeg" alt="Sertifikat Kelulusan Kelas Industri" loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div style="display:none; text-align:center;"><i class="fa-solid fa-award"></i>
+                        <p style="font-size:0.8rem;">Sertifikat 02</p>
+                    </div>
+                </div>
+                <div class="cert-body">
+                    <h4>Sertifikat Kelulusan</h4>
+                    <p style="color:var(--text-sub); font-size:0.8rem;">Kelulusan pembelajaran Kelas Industri Hummatech Semester Genap 2025/2026 fokus pada Pemrogaman Web Front End</p>
+                </div>
+            </div>
+            <div class="cert-card">
+                <div class="cert-img-box">
+                    <img src="sertifikat3.jpeg" alt="Piagam Penghargaan Pencak Silat" loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div style="display:none; text-align:center;"><i class="fa-solid fa-award"></i>
+                        <p style="font-size:0.8rem;">Sertifikat 03</p>
+                    </div>
+                </div>
+                <div class="cert-body">
+                    <h4>Piagam Penghargaan</h4>
+                    <p style="color:var(--text-sub); font-size:0.8rem;">Peraihan Juara 1 Tanding Kelas E putri Pra Remaja pada Kejuaraan Nasional Pencak Organisasi IV Tingkat Nasional</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="contact-box">
+            <h2
+                style="font-family:'Playfair Display'; margin-bottom:0.5rem; background:var(--accent-grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">
+                Saya Siap Belajar & Berkontribusi</h2>
+            <p style="color:var(--text-sub); margin-bottom:1.5rem;">Saya tertarik berkontribusi dalam pengembangan
+                aplikasi web dan terus belajar di lingkungan kerja profesional PT Kreator Solusi Informasi.</p>
+            <div class="btn-group" style="justify-content: center;">
+                <a href="https://wa.me/6289685407163" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i
+                        class="fa-brands fa-whatsapp"></i> Hubungi via WhatsApp</a>
+                <a href="https://github.com/verlitasalsabilla" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><i
+                        class="fa-brands fa-github"></i> GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Verlita Salsabilla &bull; Portfolio RPL Developer</p>
+    </footer>
+
+    <script>
+        const symbolsMap = {
+            stars: ['★', '✦', '{ }', '< />', '01'],
+            moon: ['☽', '✦', '✧', '•', '01'],
+            sun: ['☀', '☼', '⚡', '✦', '01'],
+            leaves: ['🍃', '🌿', '🌱', '☘', '01']
+        };
+
+        function changeTheme(themeName, btnElement) {
+            document.body.setAttribute('data-theme', themeName);
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            if (btnElement) btnElement.classList.add('active');
+            renderParticles(themeName);
+        }
+
+        function renderParticles(theme) {
+            const container = document.getElementById('effectContainer');
+            container.innerHTML = '';
+            const symbols = symbolsMap[theme] || symbolsMap.stars;
+            const total = 30;
+
+            for (let i = 0; i < total; i++) {
+                const item = document.createElement('div');
+                item.className = 'effect-item';
+                item.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+                item.style.left = Math.random() * 100 + 'vw';
+                item.style.animationDuration = (Math.random() * 6 + 4) + 's';
+                item.style.animationDelay = (Math.random() * 3) + 's';
+                item.style.fontSize = (Math.random() * 10 + 12) + 'px';
+                container.appendChild(item);
+            }
+        }
+
+        /* ===== LOGIKA HAMBURGER MENU ===== */
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const navLinks = document.getElementById('navLinks');
+        const hamburgerIcon = document.getElementById('hamburgerIcon');
+
+        hamburgerBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+            if (navLinks.classList.contains('show')) {
+                hamburgerIcon.classList.remove('fa-bars');
+                hamburgerIcon.classList.add('fa-xmark'); // Ubah ke ikon silang (X) saat terbuka
+            } else {
+                hamburgerIcon.classList.remove('fa-xmark');
+                hamburgerIcon.classList.add('fa-bars'); // Ubah kembali ke ikon tiga garis (☰)
+            }
+        });
+
+        // Tutup menu otomatis setelah salah satu tautan diklik
+        function closeMenu() {
+            navLinks.classList.remove('show');
+            hamburgerIcon.classList.remove('fa-xmark');
+            hamburgerIcon.classList.add('fa-bars');
+        }
+
+        renderParticles('stars');
+    </script>
+</body>
+
+</html>
